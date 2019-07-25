@@ -1,7 +1,7 @@
 const path = require('path')
 
-const resolve = dir =>{
-  return path.join(__dirname,dir)
+const resolve = dir => {
+  return path.join(__dirname, dir)
 }
 
 // 项目部署基础
@@ -11,20 +11,28 @@ const resolve = dir =>{
 // 如果您的应用程序部署在子路径中，则需要在这指定子路径
 // 例如：https://www.foobar.com/my-app/
 // 需要将它改为'/my-app/'
+const BASE_URL = process.env.NODE_ENV === 'production'
+  ? '/iview-admin/'
+  : '/'
 
-const BASE_URL = process.env.NODE_ENV === 'production' ? '/iview-admin-template/' : '/'
-
-modules.exports = {
+module.exports = {
+  // Project deployment base
+  // By default we assume your app will be deployed at the root of a domain,
+  // e.g. https://www.my-app.com/
+  // If your app is deployed at a sub-path, you will need to specify that
+  // sub-path here. For example, if your app is deployed at
+  // https://www.foobar.com/my-app/
+  // then change this to '/my-app/'
   baseUrl: BASE_URL,
-  // eslint-loader 是否在保存的时候检查
-  lintOnSave: true,
-
-  // webpack 链接 API，用于生成和修改 webapck 配置
-  chainWebpack:config =>{
+  // tweak internal webpack configuration.
+  // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
+  // 如果你不需要使用eslint，把lintOnSave设为false即可
+  lintOnSave: false,
+  chainWebpack: config => {
     config.resolve.alias
-      .set('@',resolve('src')),
-      .set('_c',resolve('src/components'))
-  }
+      .set('@', resolve('src')) // key,value自行定义，比如.set('@@', resolve('src/components'))
+      .set('_c', resolve('src/components'))
+  },
   // 打包时不生成.map文件
   productionSourceMap: true
   // 这里写你调用接口的基础路径，来解决跨域，如果设置了代理，那你本地开发环境的axios的baseUrl要写为 '' ，即空字符串

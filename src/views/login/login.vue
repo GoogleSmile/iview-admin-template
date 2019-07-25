@@ -1,3 +1,7 @@
+<style lang="less">
+  @import './login.less';
+</style>
+
 <template>
   <div class="login">
     <div class="login-con">
@@ -35,8 +39,7 @@ export default {
   }
 }
 </script>
-<style lang="less">
+
+<style>
 
 </style>
-
-
