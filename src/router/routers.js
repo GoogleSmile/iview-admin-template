@@ -1,4 +1,4 @@
-import Home from '../views/Home.vue'
+import Main from '@/components/main'
 
 
 /**
@@ -20,20 +20,31 @@ export default [
         title:'Login - 登录',
         hideInMenu: true
       },
-      component: () => import('../views/login/login.vue')
+      component: () => import('@/views/login/login.vue')
     },
     {
       path: '/',
-      name: 'home',
-      component: Home
+      name: '_home',
+      redirect: '/home',
+      component: Main,
+      meta:{
+        hideInMenu:true,
+        notCache:true
+      },
+      children:[
+        {
+          path:'/home',
+          name:'home',
+          meta:{
+            hideInMenu:true,
+            title:'首页',
+            notCache:true,
+            icon:'md-home'
+          },
+          component:() => import('@/views/sing-page/home')
+        }
+      ]
     },
-    {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-    }
+
   ]
 
