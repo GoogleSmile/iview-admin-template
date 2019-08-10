@@ -1,17 +1,24 @@
 <template>
-    <div class="">
+    <Layout style="height: 100%" class="main">
+      <Sider hide-trigger collapsible :width="256" :collapsed-width="64" v-model="collapsed" class="left-sider" :style="{overflow: 'hidden'}">
 
-    </div>
+      </Sider>
+    </Layout>
 </template>
 
 <script>
+import SideMenu from './components/side-menu'
 export default {
-    name: '',
+    name: 'Main',
     props: {},
     data() {
-        return {}
+        return {
+          collapsed:false,
+        }
     },
-    components: {},
+    components: {
+      SideMenu,
+    },
     computed: {},
     watch: {},
     created() {},
@@ -22,4 +29,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import './main.less'
 </style>
